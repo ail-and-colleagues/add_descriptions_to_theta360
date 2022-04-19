@@ -6,7 +6,7 @@ import argparse
 # https://github.com/sunset1995/py360convert
 from py360convert import e2c, c2e
 
-# references regarding jpeg xma segments.
+# references regarding jpeg xmp segments.
 # https://qiita.com/mana_544/items/3245ce87f0a0fca80c2a
 # https://hp.vector.co.jp/authors/VA032610/JPEGFormat/StructureOfJPEG.htm
 
@@ -51,8 +51,8 @@ if __name__ == '__main__':
     for c in applist:
         print(c[0], c[1][:30])
 
-    # fetch the xma segment from the original equirectangular image inputted via -e.
-    xma_seg = applist[1]
+    # fetch the xmp segment from the original equirectangular image inputted via -e.
+    xmp_seg = applist[1]
 
     with open(temp_image, mode='rb') as temp:
             with open(args.out_image, mode="wb") as out:
@@ -86,11 +86,11 @@ if __name__ == '__main__':
                             print(data[:20])
 
                             if decoded_marker == "ffe0":
-                                # add XMA writing after the ffe0 segment.
+                                # add xmp writing after the ffe0 segment.
                                 out.write(b"\xff\xe1")
-                                num = len(xma_seg[1]) + 2
+                                num = len(xmp_seg[1]) + 2
                                 out.write(num.to_bytes(2, 'big'))
-                                out.write(xma_seg[1])
+                                out.write(xmp_seg[1])
 
 
 
