@@ -20,7 +20,7 @@ optional arguments:
 
 -eで全天球映像、-dでサイコロ状にした際の一辺のサイズ（ピクセル）、-cで出力するサイコロ映像の名称を指定します。
 
-具体の変換についてはhttps://github.com/sunset1995/py360convertをお借りしています。
+具体の変換についてはhttps://github.com/sunset1995/py360convert をお借りしています。
 
 ![image](https://user-images.githubusercontent.com/39890894/163902291-0a322639-a124-435f-8149-b20363a3cdc4.png)
 
