@@ -20,6 +20,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
     print(args.eq_image)
     print(args.dim_cube)
+    # name an output image when -c is not specified.
     if args.cb_image == "":
         ite = args.eq_image.rfind(".")
         args.cb_image = args.eq_image[:ite] + "_cubed" + args.eq_image[ite:]
