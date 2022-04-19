@@ -42,7 +42,7 @@ optional arguments:
                         a name of output equirectangular image
 ```
 
--eで全天球映像、-cでサイコロ映像、-oで出力する全天球映像の名称を指定します。
+-eで全天球映像、-cでサイコロ映像、-oで出力する全天球映像の名称を指定します。変換については上と同じくhttps://github.com/sunset1995/py360convert をお借りしています。
 
 Google Photoなどに全天球映像をアップロードすると自動的に球状にマップされGoogle Street　Viewのように操作可能な状態になりますが、これは画像（jpeg）内に埋め込まれる[Photo Sphere XMP](https://developers.google.com/streetview/spherical-metadata?hl=ja&fbclid=IwAR37LZ9-3NHf0gHG1B78e0tBJECoz7qUS2_fdZh1ZHt_wRJ7NT7vX8kXwUg)というセグメントの働きのようです。カメラ情報や撮影位置を記録するExifと似たような感じでしょうか。xmpセグメントは画像処理ソフトウェアで編集すると失われるようですので、このスクリプトでは元の全天球映像からこのセグメントを複製し、出力ファイルに埋め込んでいます。
 
