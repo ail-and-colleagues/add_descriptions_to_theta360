@@ -44,9 +44,9 @@ optional arguments:
 
 -eで全天球画像、-cでサイコロ画像、-oで出力する全天球画像の名称を指定します。変換については上と同じくhttps://github.com/sunset1995/py360convert をお借りしています。
 
-Google Photoなどに全天球画像をアップロードすると自動的に球状にマップされGoogle Street Viewのように操作可能な状態になりますが、これは画像（jpeg）内に埋め込まれる[Photo Sphere XMP](https://developers.google.com/streetview/spherical-metadata?hl=ja&fbclid=IwAR37LZ9-3NHf0gHG1B78e0tBJECoz7qUS2_fdZh1ZHt_wRJ7NT7vX8kXwUg)というセグメントの働きのようです。カメラ情報や撮影位置を記録するExifと似たような感じでしょうか。xmpセグメントは画像処理ソフトウェアで編集すると失われるようですので、このスクリプトでは元の全天球画像からこのセグメントを複製し、出力ファイルに埋め込んでいます。
+Google Photoなどに全天球画像をアップロードすると自動的に球状にマップされGoogle Street Viewのように操作可能な状態になりますが、これは画像（jpeg）内に埋め込まれる[Photo Sphere XMP](https://developers.google.com/streetview/spherical-metadata?hl=ja&fbclid=IwAR37LZ9-3NHf0gHG1B78e0tBJECoz7qUS2_fdZh1ZHt_wRJ7NT7vX8kXwUg)というセグメント（スクリプト内ではphoto_sphere_app_segとしています）の働きのようです。カメラ情報や撮影位置を記録するExifと似たような感じでしょうか。このセグメントは画像処理ソフトウェアで編集すると失われるようですので、このスクリプトでは元の全天球画像からこのセグメントを複製し、出力ファイルに埋め込んでいます（ついでにExifも同様に複製・埋込を行っています）。
 
-出力された画像を[Google Photoにアップロードする](https://photos.app.goo.gl/gSbU9LbGbh1EAi8v8)と若干歪みがあるものの、それらしく説明が追加できているのが確認できると思います。全天球画像のままこの手の説明を加えてもよいのですが、キューブ化したほうが直線がちゃんと直線になる（ただしキューブのエッジでは折れる）ので便利でした。
+出力された画像を[Google Photoにアップロードする](https://photos.app.goo.gl/EvP3pZPhxDq85SBp6)と若干歪みがあるものの、それらしく説明が追加できているのが確認できると思います。全天球画像のままこの手の説明を加えてもよいのですが、キューブ化したほうが直線がちゃんと直線になる（ただしキューブのエッジでは折れる）ので便利でした。
 
 \#Google Photoにアップロードしながら試行していたのですが、失敗画像（セグメントの埋め込みに失敗したもの）もしばらくしたら「パノラマを作成した」とのことで全天球画像として認識されていました笑。確認していませんがもしかしたらそれらしい画像には自動的にセグメントを埋め込んでくれるのかもしれません。
 

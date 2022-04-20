@@ -1,3 +1,4 @@
+from tkinter.tix import IMAGE
 import numpy as np
 import struct
 from  PIL import Image
@@ -47,13 +48,22 @@ if __name__ == '__main__':
     temp_image = args.eq_image[:ite] + "\\_temp.JPG"
     Image.fromarray(em_img.astype(np.uint8)).save(temp_image, quality=95)
 
+    # fetch exif_app_seg and variable from the original equirectangular image inputted via -e.
+    exif_app_seg = None
+    photo_sphere_app_seg = None
     applist = e_img.applist
     for c in applist:
         print(c[0], c[1][:30])
-
-    # fetch the xmp segment from the original equirectangular image inputted via -e.
-    xmp_seg = applist[1]
-
+        if c[1].find(b"Exif") >= 0:
+            print("copy exif_app_seg from: ", c[0])
+            exif_app_seg = c[1]
+        if c[1].find(b"GPano") >= 0:
+            print("copy photo_sphere_app_seg from: ", c[0])       
+            photo_sphere_app_seg = c[1]
+    
+    if photo_sphere_app_seg is None:
+        raise Exception("photo_sphere_app_seg cannot found.")
+    
     with open(temp_image, mode='rb') as temp:
             with open(args.out_image, mode="wb") as out:
                 while True:
@@ -86,11 +96,24 @@ if __name__ == '__main__':
                             print(data[:20])
 
                             if decoded_marker == "ffe0":
-                                # add xmp writing after the ffe0 segment.
+                                # add exif after the ffe0 segment if exists.
+                                if exif_app_seg:
+                                    out.write(b"\xff\xe1")
+                                    num = len(exif_app_seg) + 2
+                                    out.write(num.to_bytes(2, 'big'))
+                                    out.write(exif_app_seg)
+
+                                # add photo_sphere_app_seg after the ffe0 segment.
                                 out.write(b"\xff\xe1")
-                                num = len(xmp_seg[1]) + 2
+                                num = len(photo_sphere_app_seg) + 2
                                 out.write(num.to_bytes(2, 'big'))
-                                out.write(xmp_seg[1])
+                                out.write(photo_sphere_app_seg)
+
+    # chk
+    o_img = Image.open(args.out_image)
+    applist = o_img.applist
+    for c in applist:
+        print(c[0], c[1][:30])
 
 
 
